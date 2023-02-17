@@ -7,7 +7,8 @@ package Interfaz;
 
 /**
  *
- * @author JDSan
+ * @author Juan Diego Sánchez Rentería 
+ * ID: 00000233013
  */
 public class RegistroDatos extends javax.swing.JFrame {
 

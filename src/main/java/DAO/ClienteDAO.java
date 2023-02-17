@@ -20,7 +20,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author JDSan
+ * @author Juan Diego Sánchez Rentería 
+ * ID: 00000233013
  */
 public class ClienteDAO 
 {
