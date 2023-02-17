@@ -3,6 +3,7 @@ package Utilidades;
 
 /**
  * @author Juan Diego Sánchez Rentería 
+ * PRUEBA PRUEBA PRUEBA
  * ID: 00000233013
  */
 public class ConfiguracionPaginado 
