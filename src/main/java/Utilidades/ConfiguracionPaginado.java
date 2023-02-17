@@ -2,7 +2,6 @@
 package Utilidades;
 
 /**
- *
  * @author Juan Diego Sánchez Rentería 
  * ID: 00000233013
  */
