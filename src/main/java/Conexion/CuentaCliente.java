@@ -5,18 +5,12 @@
  */
 package Conexion;
 
-import java.util.Date;
-import java.util.logging.Logger;
-
-
 /**
  *
- * @author Juan Diego Sánchez Rentería 
- * ID: 00000233013
+ * @author JDSan
  */
-public class Cliente 
+public class CuentaCliente 
 {
-    
     private int idCliente;
     private String nombre;
     private String apellidoPaterno;
@@ -25,19 +19,13 @@ public class Cliente
     private String colonia;
     private String numCasa;
     private String fecha;
+    private Integer idCuenta;
+    private String fechaApertura; 
+    private float saldo;
+    private String pin;
 
-    /**
-     * Método constructor de la clase con todos los elementos del objeto
-     * @param idCliente id del cliente
-     * @param nombre Nombre del cliente
-     * @param apellidoPaterno Apellido Paterno del cliente
-     * @param apellidoMaterno Apellido Materno del cliente
-     * @param calle Calle del cliente
-     * @param colonia Colonia del cliente
-     * @param numCasa Número de casa del cliente
-     * @param fecha Fecha de nacimiento del cliente
-     */
-    public Cliente(int idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String calle, String colonia, String numCasa, String fecha) {
+    public CuentaCliente(int idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String calle, String colonia, String numCasa, String fecha, Integer idCuenta, String fechaApertura, float saldo, String pin) {
+        
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -46,31 +34,12 @@ public class Cliente
         this.colonia = colonia;
         this.numCasa = numCasa;
         this.fecha = fecha;
+        this.idCuenta = idCuenta;
+        this.fechaApertura = fechaApertura;
+        this.saldo = saldo;
+        this.pin = pin;
     }
-    
-    /**
-     * Método constructor de la clase con todos los elementos del objeto, exceptuando el ID
-     * @param nombre Nombre del cliente
-     * @param apellidoPaterno Apellido Paterno del cliente
-     * @param apellidoMaterno Apellido Materno del cliente
-     * @param calle Calle del cliente
-     * @param colonia Colonia del cliente
-     * @param numCasa Número de casa del cliente
-     * @param fecha Fecha de nacimiento del cliente
-     */
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String calle, String colonia, String numCasa, String fecha) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.calle = calle;
-        this.colonia = colonia;
-        this.numCasa = numCasa;
-        this.fecha = fecha;
-    }
-       
-    
 
-    
     
     /**
      * Método para conseguir el ID del cliente 
@@ -87,7 +56,7 @@ public class Cliente
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    
+   
     /**
      * Método para conseguir el nombre  del cliente 
      * @return Nombre del cliente
@@ -186,12 +155,77 @@ public class Cliente
     }
     
 /**
- * Método para poner la fecha de nacimiento del cliente
- * @param fecha Fecha de nacimiento del cliente
+ * Método para conseguir el pin de la cuenta
+ * @return Pin de la cuenta
  */
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public String getPin() {
+        return pin;
     }
+/**
+ * Método para poner el pin de la cuenta
+ * @param pin Pin de la cuenta a cambiar
+ */
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+    
+    
+/**
+ *  Método para conseguir el ID de la cuenta
+ * @return ID de la cuenta
+ */
+    public Integer getIdCuenta() {
+        return idCuenta;
+    }
+/**
+ * Método para poner el id de la cuenta
+ * @param id ID de la cuenta a cambiar
+ */
+    public void setId(Integer idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+    
+    /**
+     * Método para conseguir la fecha de apertura de la cuenta
+     * @return Fecha apertura de la cuenta
+     */
+    public String getFechaApertura() {
+        return fechaApertura;
+    }
+
+    /**
+     * Método para poner la fecha de apertura de la cuenta
+     * @param fechaApertura Fecha a cambiar
+     */
+    public void setFechaApertura(String fechaApertura) {
+        this.fechaApertura = fechaApertura;
+    }
+
+    /**
+     * Método para conseguir el saldo de la cuenta
+     * @return Saldo de la cuenta
+     */
+    public float getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * Método para poner el saldo de la cuenta
+     * @param saldo Saldo a cambiar
+     */
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
+
+    /**
+     * Método para poner el id del cliente
+     * @param idCliente ID a poner
+     */
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
+    
     
     
     

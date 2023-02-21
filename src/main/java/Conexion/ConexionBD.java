@@ -20,6 +20,12 @@ public class ConexionBD
     private final String usuario;
     private final String password;
 
+    /**
+     * Constructor de la clase para la conexión a la base de datos
+     * @param cadenaConexion String con el conector para entrar a la BD
+     * @param usuario Usuario con el que se ingresará
+     * @param password Contraseña del usuario
+     */
     public ConexionBD(String cadenaConexion, String usuario, String password) 
     {
         this.cadenaConexion = cadenaConexion;
@@ -28,6 +34,11 @@ public class ConexionBD
     }
     
     
+    /**
+     * Método para crear la conexión directa con los datos recopilados
+     * @return El conector
+     * @throws SQLException De haber una falla con los datos
+     */
     public Connection crearConexion() throws SQLException
     {
         Connection conexion = 

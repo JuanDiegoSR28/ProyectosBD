@@ -5,6 +5,12 @@
  */
 package Interfaz;
 
+import Conexion.Cliente;
+import Conexion.ConexionBD;
+import Conexion.Cuenta;
+import DAO.ClienteDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Juan Diego Sánchez Rentería 
@@ -12,11 +18,29 @@ package Interfaz;
  */
 public class RegistroDatos extends javax.swing.JFrame {
 
+    private ConexionBD conexion;
+    private ClienteDAO clienteDAO;
+    private int estado;
+    
     /**
-     * Creates new form RegistroDatos
+     * Método constructor para el formulario en donde se registrarán los datos de acceso
+     * @param estado Estado del formulario, que determina ciertos aspectos gráficos del mismo
+     * @param conexion 
      */
-    public RegistroDatos() {
+    public RegistroDatos(int estado, ConexionBD conexion) 
+    {
+        
         initComponents();
+        this.conexion=conexion;
+        clienteDAO = new ClienteDAO(conexion);
+        this.estado=estado;
+        if(estado==1)
+        {
+            lblCuenta.setText("Folio de operación");
+            lblContra.setText("Contraseña");
+        }
+        
+        
     }
 
     /**
@@ -30,8 +54,8 @@ public class RegistroDatos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblCuenta = new javax.swing.JLabel();
+        lblContra = new javax.swing.JLabel();
         txtContrasena = new javax.swing.JTextField();
         btnRegresar = new javax.swing.JButton();
         btnVerificar = new javax.swing.JButton();
@@ -42,15 +66,37 @@ public class RegistroDatos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel1.setText("Ingresa los datos que se solicitan");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel2.setText("ID de cuenta");
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel3.setText("Contraseña");
+        lblCuenta.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblCuenta.setText("ID de cuenta");
+
+        lblContra.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblContra.setText("PIN");
+
+        txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContrasenaKeyTyped(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnVerificar.setText("Verificar datos");
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerificarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar datos");
 
@@ -63,17 +109,6 @@ public class RegistroDatos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(204, 204, 204)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(206, 206, 206)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(170, 170, 170)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtId)
-                                    .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(105, 105, 105)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -81,7 +116,15 @@ public class RegistroDatos extends javax.swing.JFrame {
                                         .addGap(40, 40, 40)
                                         .addComponent(btnVerificar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(170, 170, 170)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(lblContra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))))
                         .addGap(0, 105, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -94,11 +137,11 @@ public class RegistroDatos extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(50, 50, 50)
-                .addComponent(jLabel2)
+                .addComponent(lblCuenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel3)
+                .addComponent(lblContra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
@@ -114,48 +157,71 @@ public class RegistroDatos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistroDatos().setVisible(true);
+        this.setVisible(false);
+        Inicio i = new Inicio(conexion);
+        i.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+
+        
+        
+        Cuenta cuenta;  
+        cuenta = clienteDAO.consultar(4,7629);
+        int id = Integer.parseInt(txtId.getText());
+        //Integer.parseInt(txtContrasena.getText())
+        if(cuenta!=null)
+        {
+            JOptionPane.showMessageDialog(null, "Usuario encontrado!");
+            
+            if(estado==1)
+            {
+                //folio
             }
-        });
-    }
+            else
+            {
+                this.setVisible(false);
+                InterfazCuenta ic = new InterfazCuenta(id,this.conexion);
+                ic.setVisible(true);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnVerificarActionPerformed
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+
+               
+        char c = evt.getKeyChar();
+        if(c<'0'|| c>'9')evt.consume();
+        
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void txtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyTyped
+        
+               
+        char c = evt.getKeyChar();
+        if(c<'0'|| c>'9')evt.consume();
+        
+        
+    }//GEN-LAST:event_txtContrasenaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblContra;
+    private javax.swing.JLabel lblCuenta;
     private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
