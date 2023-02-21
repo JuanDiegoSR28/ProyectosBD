@@ -17,7 +17,7 @@ import Persistencias.PersistenciaException;
 public class Main {
 
     /**
-     * Método principal del proyecto
+     * Método principal del proyectos
      * @param args Argumentos necesarios para establecer la clase
      * @throws PersistenciaException Error derivado de las clases usadas
      */
